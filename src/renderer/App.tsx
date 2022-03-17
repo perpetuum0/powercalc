@@ -20,6 +20,22 @@ class Main extends React.Component<MainProps, MainState> {
     };
   }
 
+  gpuCallback = (gpuChosen: PComponentChosen) => {
+    this.setState({ gpuChosen });
+  };
+  cpuCallback = (cpuChosen: PComponentChosen) => {
+    this.setState({ cpuChosen });
+  };
+  hddCallback = (hddChosen: PComponentChosen) => {
+    this.setState({ hddChosen });
+  };
+  psuCallback = (psuChosen: PComponentChosen) => {
+    this.setState({ psuChosen });
+  };
+  ramCallback = (ramChosen: PComponentChosen) => {
+    this.setState({ ramChosen });
+  };
+
   calculateResults = () => {
     const parts = [
       'cpuChosen',
@@ -55,27 +71,6 @@ class Main extends React.Component<MainProps, MainState> {
     });
   };
 
-  gpuCallback = (gpuChosen: PComponentChosen) => {
-    this.setState({ gpuChosen });
-    this.calculateResults();
-  };
-  cpuCallback = (cpuChosen: PComponentChosen) => {
-    this.setState({ cpuChosen });
-    this.calculateResults();
-  };
-  hddCallback = (hddChosen: PComponentChosen) => {
-    this.setState({ hddChosen });
-    this.calculateResults();
-  };
-  psuCallback = (psuChosen: PComponentChosen) => {
-    this.setState({ psuChosen });
-    this.calculateResults();
-  };
-  ramCallback = (ramChosen: PComponentChosen) => {
-    this.setState({ ramChosen });
-    this.calculateResults();
-  };
-
   render() {
     return (
       <div className="main">
@@ -95,30 +90,38 @@ class Main extends React.Component<MainProps, MainState> {
           componentsList={getComponentsList('hdd')}
         />
         <Form
-          categoryName="PSU"
-          callback={this.psuCallback}
-          componentsList={getComponentsList('psu')}
-        />
-        <Form
           categoryName="RAM"
           callback={this.ramCallback}
           componentsList={getComponentsList('ram')}
         />
-        <div className="results-container">
-          <p>
-            <h3>Expenses:</h3>
-            <p>Hourly: {this.state.costPerKwh.hourly || ''}</p>
-            <p>Daily: {this.state.costPerKwh.daily || ''}</p>
-            <p>Monthly: {this.state.costPerKwh.monthly || ''}</p>
-            <p>Yearly: {this.state.costPerKwh.yearly || ''}</p>
-          </p>
-          <p>
-            <h3>Income:</h3>
-            <p>Hourly: {this.state.incomePerHour.hourly || ''}</p>
-            <p>Daily: {this.state.incomePerHour.daily || ''}</p>
-            <p>Monthly: {this.state.incomePerHour.monthly || ''}</p>
-            <p>Yearly: {this.state.incomePerHour.yearly || ''}</p>
-          </p>
+        <Form
+          categoryName="PSU"
+          callback={this.psuCallback}
+          componentsList={getComponentsList('psu')}
+        />
+        <div className="results-form">
+          <div className="results-container">
+            <div>
+              <h3 className="results-container__header"> Costs</h3>
+              <p>Hourly: {this.state.costPerKwh.hourly || 0}₸</p>
+              <p>Daily: {this.state.costPerKwh.daily || 0}₸</p>
+              <p>Monthly: {this.state.costPerKwh.monthly || 0}₸</p>
+              <p>Yearly: {this.state.costPerKwh.yearly || 0}₸</p>
+            </div>
+            <div>
+              <h3 className="results-container__header"> Income</h3>
+              <p>Hourly: {this.state.incomePerHour.hourly || 0}$</p>
+              <p>Daily: {this.state.incomePerHour.daily || 0}$</p>
+              <p>Monthly: {this.state.incomePerHour.monthly || 0}$</p>
+              <p>Yearly: {this.state.incomePerHour.yearly || 0}$</p>
+            </div>
+          </div>
+          <button
+            className="results-form__calculate-button"
+            onClick={this.calculateResults}
+          >
+            Calculate!
+          </button>
         </div>
       </div>
     );

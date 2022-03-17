@@ -78,12 +78,14 @@ class Form extends React.Component<FormProps, FormState> {
 
     return (
       <div className="form">
+        <h1 className="form__header">{this.props.categoryName}</h1>
         <div className="form__selects-div">
           <Select
             className="form__selects-div__select-brand"
             onChange={this.handleBrandChange}
             isSearchable={false}
             placeholder="Brand"
+            menuPlacement="auto"
             options={brandOptions}
           />
 
@@ -93,11 +95,14 @@ class Form extends React.Component<FormProps, FormState> {
             isSearchable={true}
             isDisabled={this.modelSelectDisabled}
             placeholder="Model"
+            menuPlacement="auto"
             options={modelOptions}
           />
-
+        </div>
+        <div className="form__quantity-div">
+          <h3 className="form__quantity-div__multiplier">X</h3>
           <input
-            className="form__selects-div__select-quantity"
+            className="form__quantity-div__select-quantity"
             type="number"
             onInput={this.handleQuantityChange}
             placeholder="Qt."
@@ -106,8 +111,6 @@ class Form extends React.Component<FormProps, FormState> {
             max={this.props.maxQuantity || 12}
           />
         </div>
-
-        <h1>{this.props.categoryName}</h1>
       </div>
     );
   }

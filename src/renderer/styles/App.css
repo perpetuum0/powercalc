@@ -8,8 +8,6 @@ body,
 }
 
 .main {
-  /* margin: auto;
-  width: auto; */
   width: 100%;
   height: 100%;
 
@@ -18,23 +16,57 @@ body,
   flex-direction: column;
   flex-wrap: wrap;
 
-  background-color: #f5f5f5;
+  background-color: #fafafa;
 }
 
 .main > div {
   margin: 10px;
   padding: 0px;
-  width: 47%;
-  height: 30%;
+  width: 48%;
+  height: 29%;
+}
+
+.header {
+  align-self: baseline;
+}
+
+.results-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.results-form__calculate-button {
+  width: 30%;
+  opacity: 1;
+  transition: 0.2s;
+  background-color: hsl(0, 0%, 95%);
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  min-height: 38px;
+}
+
+.results-form__calculate-button:hover {
+  opacity: 0.55;
+}
+
+.results-container__header {
+  margin-top: 10px;
 }
 
 .results-container {
-  width: 30%;
+  /* width: 30%; */
   width: 100%;
-  height: 100%;
+  height: 85%;
 
   display: flex;
   align-content: space-evenly;
   flex-direction: column;
   flex-wrap: wrap;
+}
+
+.results-container > div {
+  width: 40%;
 }
