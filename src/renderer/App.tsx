@@ -2,6 +2,7 @@ import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './styles/App.css';
 import Form from './Form';
 import React from 'react';
+import './parser';
 
 class Main extends React.Component {
   constructor(props: any) {
@@ -34,7 +35,7 @@ class Main extends React.Component {
         <Form categoryName="HDD" callback={this.hddCallback} />
         <Form categoryName="PSU" callback={this.psuCallback} />
         <Form categoryName="RAM" callback={this.ramCallback} />
-        <div className="results-container">Here will be the results</div>
+        <div className="results-container">Here will be the results:</div>
       </div>
     );
   }

@@ -9,10 +9,10 @@ interface FormProps {
   maxQuantity?: number;
 
   //Temporarily optional, will be implemented later
-  models?: PcComponent[];
+  components?: PComponent[];
 }
 
-interface PcComponent {
+interface PComponent {
   model: string;
 
   //Consumption per hour in kWh
@@ -22,8 +22,12 @@ interface PcComponent {
   income: number;
 }
 
-interface PcComponentChosen extends PcComponent {
+interface PComponentChosen extends PComponent {
   quantity: number;
 }
 
-declare function ComponentCallback(data: PcComponentChosen): void;
+type PComponentsList = { [brand: string]: PComponent[] };
+
+declare function ComponentCallback(data: PComponentChosen): void;
+
+type PartTypes = 'gpu' | 'cpu' | 'hdd' | 'ram' | 'psu';
