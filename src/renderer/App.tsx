@@ -14,23 +14,78 @@ class Main extends React.Component<MainProps, MainState> {
       ramChosen: {} as PComponentChosen,
       hddChosen: {} as PComponentChosen,
       psuChosen: {} as PComponentChosen,
+
+      costPerKwh: {} as Periods,
+      incomePerHour: {} as Periods,
     };
   }
 
+  calculateResults = () => {
+    const parts = [
+      'cpuChosen',
+      'gpuChosen',
+      'ramChosen',
+      'hddChosen',
+      'psuChosen',
+    ];
+
+    let totalCostPerKwh = 0,
+      totalIncomePerHour = 0;
+    parts.forEach((component) => {
+      totalCostPerKwh +=
+        this.state[component].costPerKwh * this.state[component].quantity;
+      totalIncomePerHour +=
+        this.state[component].incomePerHour * this.state[component].quantity;
+    });
+
+    this.setState({
+      costPerKwh: {
+        hourly: Number(totalCostPerKwh.toFixed(2)),
+        daily: Math.round(totalCostPerKwh * 24),
+        monthly: Math.round(totalCostPerKwh * 720),
+        yearly: Math.round(totalCostPerKwh * 8760),
+      },
+
+      incomePerHour: {
+        hourly: Number(totalIncomePerHour.toFixed(2)),
+        daily: Math.round(totalIncomePerHour * 24),
+        monthly: Math.round(totalIncomePerHour * 720),
+        yearly: Math.round(totalIncomePerHour * 8760),
+      },
+    });
+
+    console.log(
+      'Calculated Income: ',
+      this.state.incomePerHour,
+      '\nCalculated Cost: ',
+      this.state.costPerKwh
+    );
+  };
+
   gpuCallback = (gpuChosen: PComponentChosen) => {
     this.setState({ gpuChosen });
+    this.calculateResults();
+    console.log(gpuChosen);
   };
   cpuCallback = (cpuChosen: PComponentChosen) => {
     this.setState({ cpuChosen });
+    this.calculateResults();
+    console.log(cpuChosen);
   };
   hddCallback = (hddChosen: PComponentChosen) => {
     this.setState({ hddChosen });
+    this.calculateResults();
+    console.log(hddChosen);
   };
   psuCallback = (psuChosen: PComponentChosen) => {
     this.setState({ psuChosen });
+    this.calculateResults();
+    console.log(psuChosen);
   };
   ramCallback = (ramChosen: PComponentChosen) => {
     this.setState({ ramChosen });
+    this.calculateResults();
+    console.log(ramChosen);
   };
 
   render() {
@@ -62,7 +117,20 @@ class Main extends React.Component<MainProps, MainState> {
           componentsList={getComponentsList('ram')}
         />
         <div className="results-container">
-          {JSON.stringify(this.state) /*For testing purposes*/}
+          <p>
+            <h3>Expenses:</h3>
+            <p>Hourly: {this.state.costPerKwh.hourly || ''}</p>
+            <p>Daily: {this.state.costPerKwh.daily || ''}</p>
+            <p>Monthly: {this.state.costPerKwh.monthly || ''}</p>
+            <p>Yearly: {this.state.costPerKwh.yearly || ''}</p>
+          </p>
+          <p>
+            <h3>Income:</h3>
+            <p>Hourly: {this.state.incomePerHour.hourly || ''}</p>
+            <p>Daily: {this.state.incomePerHour.daily || ''}</p>
+            <p>Monthly: {this.state.incomePerHour.monthly || ''}</p>
+            <p>Yearly: {this.state.incomePerHour.yearly || ''}</p>
+          </p>
         </div>
       </div>
     );

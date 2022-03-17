@@ -9,8 +9,8 @@ const parse = (partType: PartTypes): PComponent[] => {
   db.data.forEach((row: any, i) => {
     compArr[i] = {
       model: row[0],
-      consumption: row[1],
-      income: row[2],
+      costPerKwh: Number(row[1]),
+      incomePerHour: Number(row[2]),
     };
   });
 

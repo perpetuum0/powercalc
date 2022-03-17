@@ -10,6 +10,9 @@ interface MainState {
   ramChosen: PComponentChosen;
   hddChosen: PComponentChosen;
   psuChosen: PComponentChosen;
+
+  costPerKwh: Periods;
+  incomePerHour: Periods;
 }
 
 interface FormProps {
@@ -31,16 +34,24 @@ interface PComponent {
   model: string;
 
   //Consumption per hour in kWh
-  consumption: number;
+  costPerKwh: number;
 
   //Income per hour in USD
-  income: number;
+  incomePerHour: number;
 }
 interface PComponentChosen extends PComponent {
   quantity: number;
 }
+
 type PComponentsList = { [brand: string]: PComponent[] };
 
 declare function ComponentCallback(data: PComponentChosen): void;
 
 type PartTypes = 'gpu' | 'cpu' | 'hdd' | 'ram' | 'psu';
+
+interface Periods {
+  hourly: number;
+  daily: number;
+  monthly: number;
+  yearly: number;
+}

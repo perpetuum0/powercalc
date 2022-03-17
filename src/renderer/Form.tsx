@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import './styles/Form.css';
 
-const createOptionsBrands = (options: any) => {
+const createOptions = (options: any) => {
   if (options) {
     return options.map((option: any) => {
       return { value: option, label: option };
@@ -34,24 +34,33 @@ class Form extends React.Component<FormProps, FormState> {
       models: [],
     };
   }
+
   callbackChosen = () => {
-    let compList = this.props.componentsList[this.state.brandValue];
-    let compIndex = 0;
+    //Timeout to avoid state being one step behind
+    setTimeout(() => {
+      let compList = this.props.componentsList[this.state.brandValue];
+      let compIndex = 0;
 
-    for (let i = 0; i < compList.length; i++) {
-      if (compList[i]['model'] === this.state.modelValue) {
-        compIndex = i;
+      for (let i = 0; i < compList.length; i++) {
+        if (compList[i]['model'] === this.state.modelValue) {
+          compIndex = i;
+        }
       }
-    }
 
-    let chosen = compList[compIndex] as PComponentChosen;
-    chosen['quantity'] = this.state.quantityValue;
+      let chosen = compList[compIndex] as PComponentChosen;
+      chosen['quantity'] = this.state.quantityValue;
 
-    this.props.callback(chosen);
+      this.props.callback(chosen);
+    }, 5);
   };
 
   handleModelChange = (selected: any) => {
     this.setState({ modelValue: selected.value });
+    this.callbackChosen();
+  };
+
+  handleQuantityChange = (ev: any) => {
+    this.setState({ quantityValue: Number(ev.target.value) });
     this.callbackChosen();
   };
 
@@ -60,14 +69,9 @@ class Form extends React.Component<FormProps, FormState> {
     this.modelSelectDisabled = false;
   };
 
-  handleQuantityChange = (event: any) => {
-    this.setState({ quantityValue: event.target.value });
-    this.callbackChosen();
-  };
-
   modelSelectDisabled = true;
   render() {
-    const brandOptions = createOptionsBrands(this.state.brands);
+    const brandOptions = createOptions(this.state.brands);
     const modelOptions = createOptionsModels(
       this.props.componentsList[this.state.brandValue]
     );
@@ -94,8 +98,8 @@ class Form extends React.Component<FormProps, FormState> {
 
           <input
             className="form__selects-div__select-quantity"
-            onChange={this.handleQuantityChange}
             type="number"
+            onInput={this.handleQuantityChange}
             placeholder="Qt."
             defaultValue={1}
             min={1}
