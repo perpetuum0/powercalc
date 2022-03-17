@@ -3,6 +3,7 @@ import './styles/App.css';
 import Form from './Form';
 import React from 'react';
 import getComponentsList from './parser';
+import { log } from '../logger';
 
 class Main extends React.Component<MainProps, MainState> {
   constructor(props: any) {
@@ -37,6 +38,7 @@ class Main extends React.Component<MainProps, MainState> {
   };
 
   calculateResults = () => {
+    log('Calculating results...');
     const parts = [
       'cpuChosen',
       'gpuChosen',
@@ -69,6 +71,7 @@ class Main extends React.Component<MainProps, MainState> {
         yearly: Math.round(totalIncomePerHour * 8760),
       },
     });
+    log('Results calculated!');
   };
 
   render() {

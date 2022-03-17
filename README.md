@@ -1,6 +1,6 @@
 # Powercalc
 
-## Power consumption app, written as a Hackathon project
+## Power consumption calculator app, written as a Hackathon project
 
 <br>
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import './styles/Form.css';
+import { log } from '../logger';
 
 const createOptions = (options: any) => {
   if (options) {
@@ -57,16 +58,20 @@ class Form extends React.Component<FormProps, FormState> {
   handleModelChange = (selected: any) => {
     this.setState({ modelValue: selected.value });
     this.callbackChosen();
+    log('Model changed in ' + this.props.categoryName);
   };
 
   handleQuantityChange = (ev: any) => {
     this.setState({ quantityValue: Number(ev.target.value) });
     this.callbackChosen();
+    log('Quantity changed in ' + this.props.categoryName);
   };
 
   handleBrandChange = (selected: any) => {
+    console.log(Date.now());
     this.setState({ brandValue: selected.value });
     this.modelSelectDisabled = false;
+    log('Brand changed in ' + this.props.categoryName);
   };
 
   modelSelectDisabled = true;

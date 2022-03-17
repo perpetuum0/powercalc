@@ -1,0 +1,2 @@
+[3:42:1]  --- Log Session started. --- 
+[3:42:1] Created window.

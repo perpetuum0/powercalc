@@ -5,6 +5,9 @@ import { app, BrowserWindow, shell } from 'electron';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
+import { openLogs, closeLogs, log } from '../logger';
+openLogs();
+
 let mainWindow: BrowserWindow | null = null;
 
 if (process.env.NODE_ENV === 'production') {
@@ -87,6 +90,7 @@ const createWindow = async () => {
 app.on('window-all-closed', () => {
   // Keep app in memory on OSX
   if (process.platform !== 'darwin') {
+    closeLogs();
     app.quit();
   }
 });
@@ -99,5 +103,6 @@ app
       // OSX window restoration
       if (mainWindow === null) createWindow();
     });
+    log('Created window.');
   })
   .catch(console.log);
