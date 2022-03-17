@@ -2,58 +2,84 @@ import React from 'react';
 import Select from 'react-select';
 import './styles/Form.css';
 
-const testGpuBrands = [
-  { value: 'nvidia', label: 'NVIDIA' },
-  { value: 'amd', label: 'AMD' },
-];
+const createOptionsBrands = (options: any) => {
+  if (options) {
+    return options.map((option: any) => {
+      return { value: option, label: option };
+    });
+  }
+};
 
-const testModels = [
-  { value: 'nvidia-tesla-k80', label: 'Tesla K80' },
-  { value: 'nvidia-tesla-p100', label: 'Tesla P100' },
-  { value: 'nvidia-tesla-v100', label: 'Tesla V100' },
-];
+const createOptionsModels = (options: PComponent[]) => {
+  return options.map((option: any) => {
+    return { value: option['model'], label: option['model'] };
+  });
+};
 
-class Form extends React.Component<FormProps, {}> {
+class Form extends React.Component<FormProps, FormState> {
   constructor(props: FormProps) {
     super(props);
 
+    let brands = [];
+    for (let brand in props.componentsList) {
+      brands.push(brand);
+    }
+
     this.state = {
-      brands: '',
-      currentBrand: '',
-      currentModel: '',
-      currentQuantity: 1,
+      brandValue: brands[0],
+      quantityValue: 1,
+      modelValue: '',
+
+      brands,
+      models: [],
     };
   }
 
+  //TODO: implement callbacks on Model and Quantity changes.
+  handleModelChange = (selected: any) => {
+    this.setState({ modelValue: selected.value });
+  };
+
+  handleBrandChange = (selected: any) => {
+    this.setState({ brandValue: selected.value });
+  };
+
+  handleQuantityChange = (event: any) => {
+    this.setState({ quantityValue: event.target.value });
+  };
+
   render() {
-    //TODO: Separate PcComponents into different arrays for each brand
-    //TODO: Implement onChange to the inputs
-    //TODO: Implement brand influence on model selection
+    const brandOptions = createOptionsBrands(this.state.brands);
+    const modelOptions = createOptionsModels(
+      this.props.componentsList[this.state.brandValue]
+    );
+
     return (
       <div className="form">
         <div className="form__selects-div">
           <Select
             className="form__selects-div__select-brand"
-            onChange={(e) => {}}
+            onChange={this.handleBrandChange}
             isSearchable={false}
             placeholder="Brand"
-            options={testGpuBrands} // for testing purposes
+            options={brandOptions}
           />
 
           <Select
             className="form__selects-div__select-model"
-            onChange={(e) => {}}
+            onChange={this.handleModelChange}
             isSearchable={true}
-            placeholder={'Model'}
-            options={testModels} // for testing purposes
+            placeholder="Model"
+            options={modelOptions}
           />
 
           <input
             className="form__selects-div__select-quantity"
-            onChange={(e) => {}}
+            onChange={this.handleQuantityChange}
             type="number"
             placeholder="Qt."
-            min={0}
+            defaultValue={1}
+            min={1}
             max={this.props.maxQuantity || 12}
           />
         </div>

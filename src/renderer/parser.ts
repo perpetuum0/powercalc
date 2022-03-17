@@ -18,10 +18,22 @@ const parse = (partType: PartTypes): PComponent[] => {
 };
 
 //TODO: Implement separateByBrand
-const separateByBrand = (partType: PartTypes, components: PComponent[]) => {
-  // Brand separation is hard coded, because of unstructured data in the database.
+const separateByBrand = (
+  partType: PartTypes,
+  components: PComponent[]
+): PComponentsList => {
+  // Brand separation is hard coded because of unstructured data in the database.
+  let list = {} as PComponentsList;
   switch (partType) {
     case 'gpu':
+      components.forEach((comp) => {
+        let brand = comp.model.split(' ')[0];
+        if (list.hasOwnProperty(brand)) {
+          list[brand].push(comp);
+        } else {
+          list[brand] = [comp];
+        }
+      });
       break;
     case 'cpu':
       break;
@@ -33,7 +45,7 @@ const separateByBrand = (partType: PartTypes, components: PComponent[]) => {
       break;
   }
 
-  return {};
+  return list;
 };
 
 const getComponentsList = (partType: PartTypes): PComponentsList => {

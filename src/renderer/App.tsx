@@ -2,7 +2,7 @@ import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './styles/App.css';
 import Form from './Form';
 import React from 'react';
-import './parser';
+import getComponentsList from './parser';
 
 class Main extends React.Component {
   constructor(props: any) {
@@ -11,30 +11,34 @@ class Main extends React.Component {
     this.state = {};
   }
 
-  gpuCallback = (gpu: PcComponentChosen) => {
+  gpuCallback = (gpu: PComponentChosen) => {
     this.setState({ gpu });
   };
-  cpuCallback = (cpu: PcComponentChosen) => {
+  cpuCallback = (cpu: PComponentChosen) => {
     this.setState({ cpu });
   };
-  hddCallback = (hdd: PcComponentChosen) => {
+  hddCallback = (hdd: PComponentChosen) => {
     this.setState({ hdd });
   };
-  psuCallback = (psu: PcComponentChosen) => {
+  psuCallback = (psu: PComponentChosen) => {
     this.setState({ psu });
   };
-  ramCallback = (ram: PcComponentChosen) => {
+  ramCallback = (ram: PComponentChosen) => {
     this.setState({ ram });
   };
 
   render() {
     return (
       <div className="main">
-        <Form categoryName="GPU" callback={this.gpuCallback} />
-        <Form categoryName="CPU" callback={this.cpuCallback} />
+        <Form
+          categoryName="GPU"
+          callback={this.gpuCallback}
+          componentsList={getComponentsList('gpu')}
+        />
+        {/* <Form categoryName="CPU" callback={this.cpuCallback} />
         <Form categoryName="HDD" callback={this.hddCallback} />
         <Form categoryName="PSU" callback={this.psuCallback} />
-        <Form categoryName="RAM" callback={this.ramCallback} />
+        <Form categoryName="RAM" callback={this.ramCallback} /> */}
         <div className="results-container">Here will be the results:</div>
       </div>
     );

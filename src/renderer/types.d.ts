@@ -7,9 +7,16 @@ interface FormProps {
   categoryName: string;
   callback: typeof ComponentCallback;
   maxQuantity?: number;
+  componentsList: PComponentsList;
+}
 
-  //Temporarily optional, will be implemented later
-  components?: PComponent[];
+interface FormState {
+  brandValue: string;
+  modelValue: string;
+  quantityValue: number;
+
+  brands: string[];
+  models: PComponent[] | {};
 }
 
 interface PComponent {
