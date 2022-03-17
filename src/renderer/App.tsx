@@ -35,10 +35,26 @@ class Main extends React.Component {
           callback={this.gpuCallback}
           componentsList={getComponentsList('gpu')}
         />
-        {/* <Form categoryName="CPU" callback={this.cpuCallback} />
-        <Form categoryName="HDD" callback={this.hddCallback} />
-        <Form categoryName="PSU" callback={this.psuCallback} />
-        <Form categoryName="RAM" callback={this.ramCallback} /> */}
+        <Form
+          categoryName="CPU"
+          callback={this.cpuCallback}
+          componentsList={getComponentsList('cpu')}
+        />
+        <Form
+          categoryName="HDD"
+          callback={this.hddCallback}
+          componentsList={getComponentsList('hdd')}
+        />
+        <Form
+          categoryName="PSU"
+          callback={this.psuCallback}
+          componentsList={getComponentsList('psu')}
+        />
+        <Form
+          categoryName="RAM"
+          callback={this.ramCallback}
+          componentsList={getComponentsList('ram')}
+        />
         <div className="results-container">Here will be the results:</div>
       </div>
     );

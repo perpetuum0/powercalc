@@ -17,35 +17,56 @@ const parse = (partType: PartTypes): PComponent[] => {
   return compArr;
 };
 
-//TODO: Implement separateByBrand
+const splitBrands = (
+  components: PComponent[],
+  brandPlace: number,
+  multiWordedBrands: string[] = []
+): PComponentsList => {
+  let list = {} as PComponentsList;
+
+  components.forEach((comp) => {
+    let brand = '';
+
+    //Check if the brand is a multi-worded brand
+    multiWordedBrands.forEach((multiWordedBrand) => {
+      if (comp.model.includes(multiWordedBrand)) {
+        brand = multiWordedBrand;
+        console.log(brand);
+      }
+    });
+
+    //If brand is not a multi-worded brand, use brandPLace
+    if (!brand) brand = comp.model.split(' ')[brandPlace];
+
+    //If brand is not in the list, add it
+    if (list.hasOwnProperty(brand)) {
+      list[brand].push(comp);
+    } else {
+      list[brand] = [comp];
+    }
+  });
+
+  return list;
+};
+
 const separateByBrand = (
   partType: PartTypes,
   components: PComponent[]
 ): PComponentsList => {
   // Brand separation is hard coded because of unstructured data in the database.
-  let list = {} as PComponentsList;
   switch (partType) {
     case 'gpu':
-      components.forEach((comp) => {
-        let brand = comp.model.split(' ')[0];
-        if (list.hasOwnProperty(brand)) {
-          list[brand].push(comp);
-        } else {
-          list[brand] = [comp];
-        }
-      });
-      break;
     case 'cpu':
-      break;
-    case 'hdd':
-      break;
-    case 'ram':
-      break;
-    case 'psu':
-      break;
-  }
+      return splitBrands(components, 0);
 
-  return list;
+    case 'ram':
+      return splitBrands(components, 4);
+
+    case 'hdd':
+      return splitBrands(components, 3, ['Western Digital']);
+    case 'psu':
+      return splitBrands(components, 2, ['be quiet!', 'Cooler Master']);
+  }
 };
 
 const getComponentsList = (partType: PartTypes): PComponentsList => {
