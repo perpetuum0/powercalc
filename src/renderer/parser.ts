@@ -31,7 +31,6 @@ const splitBrands = (
     multiWordedBrands.forEach((multiWordedBrand) => {
       if (comp.model.includes(multiWordedBrand)) {
         brand = multiWordedBrand;
-        console.log(brand);
       }
     });
 

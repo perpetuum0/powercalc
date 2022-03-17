@@ -34,20 +34,38 @@ class Form extends React.Component<FormProps, FormState> {
       models: [],
     };
   }
+  callbackChosen = () => {
+    let compList = this.props.componentsList[this.state.brandValue];
+    let compIndex = 0;
 
-  //TODO: implement callbacks on Model and Quantity changes.
+    for (let i = 0; i < compList.length; i++) {
+      if (compList[i]['model'] === this.state.modelValue) {
+        compIndex = i;
+      }
+    }
+
+    let chosen = compList[compIndex] as PComponentChosen;
+    chosen['quantity'] = this.state.quantityValue;
+
+    this.props.callback(chosen);
+  };
+
   handleModelChange = (selected: any) => {
     this.setState({ modelValue: selected.value });
+    this.callbackChosen();
   };
 
   handleBrandChange = (selected: any) => {
     this.setState({ brandValue: selected.value });
+    this.modelSelectDisabled = false;
   };
 
   handleQuantityChange = (event: any) => {
     this.setState({ quantityValue: event.target.value });
+    this.callbackChosen();
   };
 
+  modelSelectDisabled = true;
   render() {
     const brandOptions = createOptionsBrands(this.state.brands);
     const modelOptions = createOptionsModels(
@@ -69,6 +87,7 @@ class Form extends React.Component<FormProps, FormState> {
             className="form__selects-div__select-model"
             onChange={this.handleModelChange}
             isSearchable={true}
+            isDisabled={this.modelSelectDisabled}
             placeholder="Model"
             options={modelOptions}
           />

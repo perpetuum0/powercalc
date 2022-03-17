@@ -3,13 +3,21 @@ interface selectionItem {
   value: string;
 }
 
+interface MainProps {}
+interface MainState {
+  cpuChosen: PComponentChosen;
+  gpuChosen: PComponentChosen;
+  ramChosen: PComponentChosen;
+  hddChosen: PComponentChosen;
+  psuChosen: PComponentChosen;
+}
+
 interface FormProps {
   categoryName: string;
   callback: typeof ComponentCallback;
   maxQuantity?: number;
   componentsList: PComponentsList;
 }
-
 interface FormState {
   brandValue: string;
   modelValue: string;
@@ -28,11 +36,9 @@ interface PComponent {
   //Income per hour in USD
   income: number;
 }
-
 interface PComponentChosen extends PComponent {
   quantity: number;
 }
-
 type PComponentsList = { [brand: string]: PComponent[] };
 
 declare function ComponentCallback(data: PComponentChosen): void;

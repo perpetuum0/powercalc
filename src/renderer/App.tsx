@@ -4,27 +4,33 @@ import Form from './Form';
 import React from 'react';
 import getComponentsList from './parser';
 
-class Main extends React.Component {
+class Main extends React.Component<MainProps, MainState> {
   constructor(props: any) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      cpuChosen: {} as PComponentChosen,
+      gpuChosen: {} as PComponentChosen,
+      ramChosen: {} as PComponentChosen,
+      hddChosen: {} as PComponentChosen,
+      psuChosen: {} as PComponentChosen,
+    };
   }
 
-  gpuCallback = (gpu: PComponentChosen) => {
-    this.setState({ gpu });
+  gpuCallback = (gpuChosen: PComponentChosen) => {
+    this.setState({ gpuChosen });
   };
-  cpuCallback = (cpu: PComponentChosen) => {
-    this.setState({ cpu });
+  cpuCallback = (cpuChosen: PComponentChosen) => {
+    this.setState({ cpuChosen });
   };
-  hddCallback = (hdd: PComponentChosen) => {
-    this.setState({ hdd });
+  hddCallback = (hddChosen: PComponentChosen) => {
+    this.setState({ hddChosen });
   };
-  psuCallback = (psu: PComponentChosen) => {
-    this.setState({ psu });
+  psuCallback = (psuChosen: PComponentChosen) => {
+    this.setState({ psuChosen });
   };
-  ramCallback = (ram: PComponentChosen) => {
-    this.setState({ ram });
+  ramCallback = (ramChosen: PComponentChosen) => {
+    this.setState({ ramChosen });
   };
 
   render() {
@@ -55,7 +61,9 @@ class Main extends React.Component {
           callback={this.ramCallback}
           componentsList={getComponentsList('ram')}
         />
-        <div className="results-container">Here will be the results:</div>
+        <div className="results-container">
+          {JSON.stringify(this.state) /*For testing purposes*/}
+        </div>
       </div>
     );
   }
