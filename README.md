@@ -4,6 +4,14 @@
 
 <br>
 
+### Installation
+
+```bash
+git clone https://github.com/perpetuum0/powercalc.git
+cd powercalc
+npm install
+```
+
 ### Running Development Build
 
 ```bash
