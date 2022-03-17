@@ -53,39 +53,27 @@ class Main extends React.Component<MainProps, MainState> {
         yearly: Math.round(totalIncomePerHour * 8760),
       },
     });
-
-    console.log(
-      'Calculated Income: ',
-      this.state.incomePerHour,
-      '\nCalculated Cost: ',
-      this.state.costPerKwh
-    );
   };
 
   gpuCallback = (gpuChosen: PComponentChosen) => {
     this.setState({ gpuChosen });
     this.calculateResults();
-    console.log(gpuChosen);
   };
   cpuCallback = (cpuChosen: PComponentChosen) => {
     this.setState({ cpuChosen });
     this.calculateResults();
-    console.log(cpuChosen);
   };
   hddCallback = (hddChosen: PComponentChosen) => {
     this.setState({ hddChosen });
     this.calculateResults();
-    console.log(hddChosen);
   };
   psuCallback = (psuChosen: PComponentChosen) => {
     this.setState({ psuChosen });
     this.calculateResults();
-    console.log(psuChosen);
   };
   ramCallback = (ramChosen: PComponentChosen) => {
     this.setState({ ramChosen });
     this.calculateResults();
-    console.log(ramChosen);
   };
 
   render() {
