@@ -17,10 +17,6 @@ if (process.env.NODE_ENV === 'production') {
 const isDevelopment =
   process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true';
 
-if (isDevelopment) {
-  require('electron-debug')();
-}
-
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
@@ -49,8 +45,8 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 928,
+    width: 924,
+    height: 728,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       nodeIntegration: true,

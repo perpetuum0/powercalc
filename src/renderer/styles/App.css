@@ -46,6 +46,7 @@ body,
   border-style: solid;
   border-width: 1px;
   min-height: 38px;
+  margin-top: 15px;
 }
 
 .results-form__calculate-button:hover {
