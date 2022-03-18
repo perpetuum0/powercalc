@@ -2,7 +2,6 @@
 
 import path from 'path';
 import { app, BrowserWindow, shell } from 'electron';
-import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
 import { openLogs, closeLogs, log } from '../logger';
@@ -51,7 +50,7 @@ const createWindow = async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728,
+    height: 928,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       nodeIntegration: true,
@@ -59,6 +58,9 @@ const createWindow = async () => {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
+
+  //Hide menu bar
+  mainWindow.menuBarVisible = false;
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
 
@@ -76,9 +78,6 @@ const createWindow = async () => {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
 
   // Open urls in the user's browser
   mainWindow.webContents.setWindowOpenHandler((edata) => {

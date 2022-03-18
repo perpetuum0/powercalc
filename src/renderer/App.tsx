@@ -51,8 +51,10 @@ class Main extends React.Component<MainProps, MainState> {
       totalIncomePerHour = 0;
     parts.forEach((component) => {
       totalCostPerKwh +=
+        // @ts-ignore
         this.state[component].costPerKwh * this.state[component].quantity;
       totalIncomePerHour +=
+        // @ts-ignore
         this.state[component].incomePerHour * this.state[component].quantity;
     });
 
